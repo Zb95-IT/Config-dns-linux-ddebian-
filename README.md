@@ -59,10 +59,10 @@ Cette déclaration indique à Bind9 qu'il fait autorité sur la zone `wilders.la
 
 Fichier `/etc/bind/db.wilders.lan` :
 
-```
+
 <img width="522" height="236" alt="image" src="https://github.com/user-attachments/assets/9ba8cde6-6551-4e1a-82f9-822a43f9fd47" />
 
-```
+
 
 Détail des enregistrements :
 
