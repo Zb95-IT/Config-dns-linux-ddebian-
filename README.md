@@ -14,11 +14,6 @@ Le DNS joue le rôle d'annuaire du réseau. Il traduit un nom comme `web.wilders
 | Serveur DNS | Debian 12 | 192.168.1.50 | Réseau interne |
 | Client de test | Ubuntu 24.04 | 192.168.1.60 | Réseau interne |
 
-## Prérequis
-
-1. Une VM Debian 12 installée
-2. La carte réseau configurée en Réseau interne
-3. Un accès root
 
 ## 1. Configuration de l'adresse IP fixe
 
@@ -65,18 +60,8 @@ Cette déclaration indique à Bind9 qu'il fait autorité sur la zone `wilders.la
 Fichier `/etc/bind/db.wilders.lan` :
 
 ```
-$TTL    604800
-@       IN      SOA     ns1.wilders.lan. admin.wilders.lan. (
-                        2
-                        604800
-                        86400
-                        2419200
-                        604800 )
-;
-@       IN      NS      ns1.wilders.lan.
-ns1     IN      A       192.168.1.50
-srv     IN      A       192.168.1.51
-web     IN      CNAME   srv.wilders.lan.
+<img width="522" height="236" alt="image" src="https://github.com/user-attachments/assets/9ba8cde6-6551-4e1a-82f9-822a43f9fd47" />
+
 ```
 
 Détail des enregistrements :
