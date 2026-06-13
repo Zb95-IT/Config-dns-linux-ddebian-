@@ -6,8 +6,7 @@
 
 Installer et configurer un serveur DNS faisant autorité sur la zone `wilders.lan` sous Debian 12, créer un enregistrement de type A et un enregistrement de type CNAME, puis valider la résolution depuis le serveur et depuis un client du réseau local.
 
-Le DNS joue le rôle d'annuaire du réseau. Il traduit un nom comme `web.wilders.lan` en adresse IP. À la différence du DHCP, il ne distribue aucune adresse, il répond simplement à la question "quelle est l'adresse de ce nom".
-
+Le DNS joue le rôle d'annuaire du réseau. Il traduit un nom comme `web.wilders.lan` en adresse IP.
 ## Environnement
 
 | Rôle | Système | Adresse IP | Réseau |
