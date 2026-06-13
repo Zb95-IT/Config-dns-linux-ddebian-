@@ -120,7 +120,8 @@ Résolution de l'enregistrement A en interrogeant le serveur :
 dig @192.168.1.50 srv.wilders.lan
 ```
 
-![Test de l'enregistrement A depuis le client](screenshots/02-test-client-enregistrement-A.png)
+<img width="778" height="487" alt="image" src="https://github.com/user-attachments/assets/26c21eac-b609-424f-82b2-2d6770443cda" />
+
 
 Résolution de l'enregistrement CNAME :
 
@@ -130,7 +131,8 @@ dig @192.168.1.50 web.wilders.lan
 
 La réponse renvoie d'abord le CNAME `web vers srv`, puis l'adresse de srv. La résolution traverse donc bien l'alias.
 
-![Test de l'enregistrement CNAME depuis le client](screenshots/03-test-client-enregistrement-CNAME.png)
+<img width="867" height="514" alt="image" src="https://github.com/user-attachments/assets/2b0f3db5-8bd0-4ded-9090-76939c8b201f" />
+
 
 ## Critères d'acceptation
 
