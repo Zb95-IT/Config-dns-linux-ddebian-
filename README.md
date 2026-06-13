@@ -101,7 +101,8 @@ systemctl status named
 
 La commande `named-checkzone` doit afficher `OK` et le service doit être `active (running)`. Les requêtes locales `dig @127.0.0.1` confirment que la zone répond correctement.
 
-![Validation et tests depuis le serveur](screenshots/01-validation-serveur.png)
+<img width="543" height="43" alt="image" src="https://github.com/user-attachments/assets/2210751b-25ce-4bda-b88e-1c0422d8c374" />
+
 
 ## 6. Test depuis le client
 
