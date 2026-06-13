@@ -1,4 +1,4 @@
-[README-DNS-Bind9.md](https://github.com/user-attachments/files/28914754/README-DNS-Bind9.md)
+
 # Mise en place d'un serveur DNS sous Linux Debian avec Bind9
 
 ## Objectif
