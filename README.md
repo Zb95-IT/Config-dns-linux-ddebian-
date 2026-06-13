@@ -1,4 +1,5 @@
 
+
 # Mise en place d'un serveur DNS sous Linux Debian avec Bind9
 
 ## Objectif
@@ -12,7 +13,7 @@ Le DNS joue le rôle d'annuaire du réseau. Il traduit un nom comme `web.wilders
 | Rôle | Système | Adresse IP | Réseau |
 |------|---------|-----------|--------|
 | Serveur DNS | Debian 12 | 192.168.1.50 | Réseau interne |
-| Client de test | Ubuntu | 192.168.1.60 | Réseau interne |
+| Client de test | Ubuntu 24.04 | 192.168.1.60 | Réseau interne |
 
 ## Prérequis
 
@@ -22,7 +23,7 @@ Le DNS joue le rôle d'annuaire du réseau. Il traduit un nom comme `web.wilders
 
 ## 1. Configuration de l'adresse IP fixe
 
-Le réseau interne ne possède pas de serveur DHCP, l'adresse doit donc être fixée manuellement.
+Le réseau interne ne possède pas de serveur DHCP, l'adresse est donc fixée manuellement.
 
 Fichier `/etc/network/interfaces` :
 
@@ -33,14 +34,10 @@ iface ens33 inet static
     netmask 255.255.255.0
 ```
 
-Application et vérification :
-
 ```bash
 systemctl restart networking
 ip a
 ```
-
-![Adresse IP du serveur](screenshots/01-ip-serveur.png)
 
 ## 2. Installation de Bind9
 
@@ -93,62 +90,46 @@ Détail des enregistrements :
 
 Un enregistrement A associe un nom à une adresse IP. Un enregistrement CNAME associe un nom à un autre nom.
 
-![Fichier de zone](screenshots/02-zone.png)
-
-## 5. Validation de la configuration
+## 5. Validation et démarrage
 
 ```bash
 named-checkconf
 named-checkzone wilders.lan /etc/bind/db.wilders.lan
-```
-
-Le résultat attendu est `OK`. Cette étape évite de redémarrer le service avec une erreur de syntaxe.
-
-![Validation de la zone](screenshots/03-checkzone.png)
-
-## 6. Redémarrage du service
-
-Sur Debian 12 le service se nomme `named`.
-
-```bash
 systemctl restart named
 systemctl status named
 ```
 
-Le service doit afficher `active (running)`.
+La commande `named-checkzone` doit afficher `OK` et le service doit être `active (running)`. Les requêtes locales `dig @127.0.0.1` confirment que la zone répond correctement.
 
-![Service actif](screenshots/04-status.png)
+![Validation et tests depuis le serveur](screenshots/01-validation-serveur.png)
 
-## 7. Test depuis le serveur
-
-```bash
-dig @127.0.0.1 srv.wilders.lan
-dig @127.0.0.1 web.wilders.lan
-```
-
-La section ANSWER doit renvoyer 192.168.1.51 pour srv, et le CNAME suivi de l'adresse pour web.
-
-![Résolution de l'enregistrement A](screenshots/05-dig-srv.png)
-
-![Résolution de l'enregistrement CNAME](screenshots/06-dig-web.png)
-
-## 8. Test depuis le client
+## 6. Test depuis le client
 
 Le client Ubuntu reçoit lui aussi une adresse fixe puisque le réseau est isolé.
 
 ```bash
 sudo ip addr add 192.168.1.60/24 dev ens33
 sudo ip link set ens33 up
+ping 192.168.1.50
 ```
 
-Vérification de la connectivité puis de la résolution en interrogeant le serveur :
+Résolution de l'enregistrement A en interrogeant le serveur :
 
 ```bash
-ping 192.168.1.50
+dig @192.168.1.50 srv.wilders.lan
+```
+
+![Test de l'enregistrement A depuis le client](screenshots/02-test-client-enregistrement-A.png)
+
+Résolution de l'enregistrement CNAME :
+
+```bash
 dig @192.168.1.50 web.wilders.lan
 ```
 
-![Test depuis le client](screenshots/07-client.png)
+La réponse renvoie d'abord le CNAME `web vers srv`, puis l'adresse de srv. La résolution traverse donc bien l'alias.
+
+![Test de l'enregistrement CNAME depuis le client](screenshots/03-test-client-enregistrement-CNAME.png)
 
 ## Critères d'acceptation
 
