@@ -118,13 +118,3 @@ La réponse renvoie d'abord le CNAME `web vers srv`, puis l'adresse de srv. La r
 <img width="867" height="514" alt="image" src="https://github.com/user-attachments/assets/2b0f3db5-8bd0-4ded-9090-76939c8b201f" />
 
 
-## Critères d'acceptation
-
-* [x] La zone se nomme `wilders.lan`
-* [x] La résolution de l'enregistrement A fonctionne
-* [x] La résolution de l'enregistrement CNAME fonctionne
-* [x] Les tests valident la résolution depuis le serveur et depuis un client
-
-## Remarque
-
-Sur le serveur, des messages `network unreachable` peuvent apparaître dans les logs de Bind9. Ils proviennent des tentatives de contact des serveurs racines d'Internet, impossibles sur un réseau interne isolé. Ils n'affectent pas la résolution de la zone `wilders.lan`, qui reste pleinement fonctionnelle.
